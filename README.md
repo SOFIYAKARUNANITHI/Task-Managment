@@ -36,9 +36,7 @@ flutter run
 
 <img src="https://github.com/SOFIYAKARUNANITHI/Task-Managment/assets/102280794/22b9e657-4c41-43af-a480-8b46ba2d07d5" width="200" />
 
-3.And when user needs to update  the task there's a option available with update button in every task.
-
-
+3.And when user needs to update  the task there's a option available with update button in every task,More than that user can complete the task by clicking checkbox in the task.
 
 
 <img src="https://github.com/SOFIYAKARUNANITHI/Task-Managment/assets/102280794/66ba517e-18f1-4ade-84bc-a3f6829f6656" width="200" />
