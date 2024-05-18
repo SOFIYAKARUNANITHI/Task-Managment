@@ -133,11 +133,11 @@ class HomePageState extends State<HomePage> {
                           ),
                           subtitle: Text(
                             taskModel[index]['taskDesc'],
-                            maxLines: 3,
+                            maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                                 fontFamily: 'roboto',
-                                fontSize: 15,
+                                fontSize: 13,
                                 color: Colors.white70,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -283,7 +283,7 @@ class HomePageState extends State<HomePage> {
                                     child: Text(taskModel[index]['taskTag']),
                                   )),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width / 5,
+                                width: MediaQuery.of(context).size.width * 0.05,
                               ),
                               Checkbox(
                                 checkColor:
@@ -686,14 +686,11 @@ class HomePageState extends State<HomePage> {
   }
 
   Future<void> scheduledNotification(Map<String, dynamic> taskdata) async {
-    final timeZoneName = await FlutterTimezone.getLocalTimezone();
-    tz.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation(timeZoneName));
     Timestamp scheduledate = taskdata['taskDeadline'];
     await flutterLocalNotificationsPlugin.zonedSchedule(
         0,
-        'scheduled title',
-        'scheduled body',
+        "${taskdata['taskName']} - Due in 10 Minutes",
+        taskdata['taskDesc'],
         tz.TZDateTime.fromMillisecondsSinceEpoch(
                 tz.local, scheduledate.millisecondsSinceEpoch)
             .subtract(const Duration(minutes: 10)),
@@ -711,6 +708,10 @@ class HomePageState extends State<HomePage> {
   }
 
   void initload() async {
+    final timeZoneName = await FlutterTimezone.getLocalTimezone();
+    tz.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation(timeZoneName));
+
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -742,7 +743,16 @@ class HomePageState extends State<HomePage> {
     await fireStore.collection('Taskss').doc(user!.uid).get().then((value) {
       value['Tasklist'].forEach((element) {
         taskModel.add(element);
-        scheduledNotification(element);
+        final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+        Timestamp deadline = element['taskDeadline'];
+        if (DateTime.now().isBefore(deadline.toDate()) &&
+            !element['taskStatus']
+                .toString()
+                .toLowerCase()
+                .contains('completed')) {
+          scheduledNotification(element);
+        }
+
         print(element);
       });
     });

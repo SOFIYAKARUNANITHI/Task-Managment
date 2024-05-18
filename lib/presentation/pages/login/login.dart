@@ -35,23 +35,25 @@ class LoginScreenState extends State<LoginScreen> {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.areNotificationsEnabled();
-    await showDialog<void>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-              content: Text(areEnabled == null
-                  ? 'ERROR: received null'
-                  : (areEnabled
-                      ? 'Notifications are enabled'
-                      : 'Notifications are NOT enabled')),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            ));
+    if (areEnabled != null && areEnabled != true) {
+      await showDialog<void>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                content: Text(areEnabled == null
+                    ? 'ERROR: received null'
+                    : (areEnabled
+                        ? 'Notifications are enabled'
+                        : 'Notifications are NOT enabled,Please give Notifications Permission to Preceed Furthur.')),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'),
+                  ),
+                ],
+              ));
+    }
   }
 
   Future<void> _checkNotificationsOnCupertino() async {
