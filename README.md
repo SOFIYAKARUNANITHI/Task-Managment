@@ -38,7 +38,10 @@ flutter run
 
 3.And when user needs to update  the task there's a option available with update button in every task.
 
-<img src="https://github.com/SOFIYAKARUNANITHI/Task-Managment/assets/102280794/172a5a20-fa6f-445d-8222-83d8c4ae07c1" width="200" />
+
+
+
+<img src="https://github.com/SOFIYAKARUNANITHI/Task-Managment/assets/102280794/66ba517e-18f1-4ade-84bc-a3f6829f6656" width="200" />
 
 <img src="https://github.com/SOFIYAKARUNANITHI/Task-Managment/assets/102280794/2eccf413-eb64-49aa-9617-6e5f43a66c24" width="200" />
 
