@@ -14,8 +14,6 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:get/get.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-import '../controllers/datafetchcontroller.dart';
-
 import 'package:intl/intl.dart';
 
 @pragma('vm:entry-point')
@@ -39,7 +37,6 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  DataFetchController datasourcecontroller = Get.put(DataFetchController());
   final String routeName = '/profile';
   final fireStore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> taskModel = [];
